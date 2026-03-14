@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/api";
 
+
 function ProductList() {
 
     const [products, setProducts] = useState([]);
@@ -15,16 +16,20 @@ function ProductList() {
 
     return (
         <div>
-            <h2>Products</h2>
-
+            <h2 className="section-title">Products</h2>
+            <div className="products-grid">
             {products.map(product => (
-                <div key={product.id}>
-                    <h3>{product.name}</h3>
-                    <p>{product.description}</p>
-                    <p>${product.price}</p>
+                <div className="product-card" key={product.id}>
+                    
+                    <h3 className="product-name">{product.name}</h3>
+                    <img className="product-image"
+                    src={product.imageUrl}
+                    alt={product.name}/>
+                    <p className="product-description">{product.description}</p>
+                    <p className="product-price">${product.price}</p>
                 </div>
             ))}
-
+             </div>   
         </div>
     );
 }
