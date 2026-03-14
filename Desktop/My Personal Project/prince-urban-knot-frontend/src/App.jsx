@@ -1,10 +1,10 @@
 import ProductList from "./components/ProductList";
-
+import "./App.css";
 function App() {
 
   return (
-    <div>
-      <h1>Prince Urban Knot</h1>
+    <div className="container">
+      <h1 className="title">Prince Urban Knot</h1>
       <ProductList />
     </div>
   );
