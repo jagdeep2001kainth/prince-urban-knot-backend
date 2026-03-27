@@ -22,7 +22,7 @@ const Login = () => {
 
     return (
         <div className="auth-container">
-            <h2>Login</h2>
+            <h2 className="section-title">Login</h2>
             {error && <p className="error">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <input
