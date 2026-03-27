@@ -1,15 +1,15 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
-import api from "../services/api";
+import { getProducts } from "../services/api"; // ✅ Use the named fetch function
 import ProductCard from "../components/ProductList";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    api.get("/products")
-       .then(res => setProducts(res.data))
-       .catch(err => console.error(err));
+    getProducts()
+      .then(data => setProducts(data)) // ✅ No need for .data with standard fetch
+      .catch(err => console.error(err));
   }, []);
 
   return (
