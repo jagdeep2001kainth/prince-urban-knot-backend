@@ -25,6 +25,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
 
     public String loginUser(String email, String password) {
         User user = userRepository.findByEmail(email)
@@ -33,5 +37,6 @@ public class UserService {
             throw new RuntimeException("Invalid password");
         }
         return jwtUtil.generateToken(email);
+
     }
 }

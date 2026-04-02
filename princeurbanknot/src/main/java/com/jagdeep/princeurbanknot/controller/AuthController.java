@@ -2,6 +2,7 @@ package com.jagdeep.princeurbanknot.controller;
 
 import com.jagdeep.princeurbanknot.config.JwtUtil;
 import com.jagdeep.princeurbanknot.model.User;
+import com.jagdeep.princeurbanknot.model.Role;
 import com.jagdeep.princeurbanknot.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +22,30 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.registerUser(user));
+    public ResponseEntity<Map<String, Object>> register(@RequestBody User user) {
+        // Default role if not provided
+        if (user.getRole() == null) {
+            user.setRole(Role.USER);
+        }
+        User saved = userService.registerUser(user);
+        // Return safe response (no password)
+        return ResponseEntity.ok(Map.of(
+                "id", saved.getId(),
+                "name", saved.getName(),
+                "email", saved.getEmail(),
+                "role", saved.getRole()
+        ));
     }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> request) {
-        String token = userService.loginUser(request.get("email"), request.get("password"));
-        return ResponseEntity.ok(Map.of("token", token));
+        String email = request.get("email");
+        String token = userService.loginUser(email, request.get("password"));
+        User user = userService.getUserByEmail(email); // ← add this
+        return ResponseEntity.ok(Map.of(
+                "token", token,
+                "name", user.getName(),
+                "email", user.getEmail()
+        ));
     }
 }

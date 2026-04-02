@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { getProducts } from "../services/api"; // ✅ Use the named fetch function
 import ProductCard from "../components/ProductList";
+import CartDrawer from "../components/CartDrawer";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -12,11 +13,14 @@ const Home = () => {
       .catch(err => console.error(err));
   }, []);
 
-  return (
-    <div className="product-list">
-      {products.map(product => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+   return (
+    <div className="home-wrapper">
+      <div className="products-grid">
+        {products.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+      <CartDrawer />
     </div>
   );
 };
