@@ -31,14 +31,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/products/bulk").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/products").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/products").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/products/bulk").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ADMIN")
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
