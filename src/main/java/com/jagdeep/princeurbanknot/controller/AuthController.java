@@ -23,12 +23,10 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody User user) {
-        // Default role if not provided
         if (user.getRole() == null) {
             user.setRole(Role.USER);
         }
         User saved = userService.registerUser(user);
-        // Return safe response (no password)
         return ResponseEntity.ok(Map.of(
                 "id", saved.getId(),
                 "name", saved.getName(),
@@ -40,12 +38,16 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> request) {
         String email = request.get("email");
-        String token = userService.loginUser(email, request.get("password"));
-        User user = userService.getUserByEmail(email); // ← add this
+        String password = request.get("password");
+
+        String token = userService.loginUser(email, password);
+        User user = userService.getUserByEmail(email);
+
         return ResponseEntity.ok(Map.of(
                 "token", token,
                 "name", user.getName(),
-                "email", user.getEmail()
+                "email", user.getEmail(),
+                "role", user.getRole().name()
         ));
     }
 }
