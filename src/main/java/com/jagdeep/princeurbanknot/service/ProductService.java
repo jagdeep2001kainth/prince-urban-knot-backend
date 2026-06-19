@@ -2,6 +2,7 @@ package com.jagdeep.princeurbanknot.service;
 
 import com.jagdeep.princeurbanknot.model.Product;
 import com.jagdeep.princeurbanknot.repository.ProductRepository;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +46,9 @@ public class ProductService {
 
     public List<Product> getProductsByCategory(String category) {
         return productRepository.findByCategory(category);
+    }
+
+    public List<Product> createProducts(List<Product> products) {
+        return productRepository.saveAll(products);
     }
 }

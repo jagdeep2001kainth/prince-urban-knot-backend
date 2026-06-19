@@ -41,6 +41,12 @@ public class ProductController {
         return ResponseEntity.ok(productService.createProduct(product));
     }
 
+    // NEW: bulk create
+    @PostMapping("/bulk")
+    public ResponseEntity<List<Product>> createProducts(@RequestBody List<Product> products) {
+        return ResponseEntity.ok(productService.createProducts(products));
+    }
+
     // PUT update product
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
