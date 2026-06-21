@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -26,7 +28,17 @@ public class Product {
 
     private BigDecimal price;
 
+    // Legacy single-image field. Kept for backward compatibility with
+    // existing frontend code (product cards, etc). Auto-filled from the
+    // first entry in imageUrls if not explicitly set.
     private String imageUrl;
+
+    @Builder.Default
+    @ElementCollection
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image_url", length = 500)
+    @OrderColumn(name = "image_order")
+    private List<String> imageUrls = new ArrayList<>();
 
     private String category;
 
@@ -35,7 +47,10 @@ public class Product {
     private LocalDateTime createdAt;
 
     @PrePersist
-    public void setCreatedAt() {
+    public void onCreate() {
         this.createdAt = LocalDateTime.now();
+        if (this.imageUrl == null && imageUrls != null && !imageUrls.isEmpty()) {
+            this.imageUrl = imageUrls.get(0);
+        }
     }
 }
