@@ -33,5 +33,6 @@ build/
 .vscode/
 application.properties
 application-prod.properties
+src/main/resources/application-prod.properties
 !application-prod.propertiespackage.json
 package-lock.json
