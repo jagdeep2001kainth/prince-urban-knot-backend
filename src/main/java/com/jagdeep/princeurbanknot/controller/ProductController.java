@@ -4,6 +4,7 @@ import com.jagdeep.princeurbanknot.model.Product;
 import com.jagdeep.princeurbanknot.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
