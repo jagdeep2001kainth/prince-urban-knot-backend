@@ -170,4 +170,4 @@ cp src/main/resources/application-prod.properties src/main/resources/application
 
 ## Deployment
 
-Deployed on **Render** as a Dockerized web service. Docker build uses a multi-stage Maven + Eclipse Temurin 17 JRE image. Auto-deploys on push to `main`. A cron-job.org monitor pings `/health` every 5 minutes to prevent free-tier instance spin-down.
+Deployed on **Render** as a Dockerized web service. Docker build uses a multi-stage Maven + Eclipse Temurin 17 JRE image. Auto-deploys on push to `main`. A Uptime Robot monitor pings `/health` every 5 minutes to prevent free-tier instance spin-down.
