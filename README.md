@@ -30,7 +30,7 @@ A production-deployed REST API for a men's neckties e-commerce platform. Built w
 - **Multi-image product support** — each product stores up to 3 Cloudinary image URLs via JPA `@ElementCollection` (`product_images` table), with a legacy `imageUrl` field kept for backward compatibility
 - **Bulk upload** — `/api/products/bulk-v3` endpoint accepts a JSON array of products with `imageUrls` list, auto-populates legacy `imageUrl` from first entry
 - **Cart & Orders** — add/remove cart items, place orders, view order history per authenticated user
-- **Health endpoint** — `/health` returns live status; pinged every 5 minutes by cron-job.org to prevent Render free-tier cold starts
+- **Health endpoint** — `/health` returns live status; pinged every 5 minutes by Uptime Robot to prevent Render free-tier cold starts
 
 ---
 
